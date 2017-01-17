@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Nyer Menu</title>
+</head>
+<body>
+  Keyboard Shortcut
+  <input type="text" />
+  <br />
+  Manual Input
+  <input type="checkbox" checked />
+  <h1></h1>
+  <script>
+    const ICONS = {
+      alt: '⎇',
+      ctrl: '⌃',
+      meta: '⌘',
+      shift: '⇧',
+    }
+
+    const h1 = document.querySelector('h1')
+
+    const kbInput = document.querySelector('input[type="text"]')
+    kbInput.trigger('blur')
+
+    const kbListener = document.querySelector('input[type="checkbox"]')
+
+    kbListener.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        kbInput.placeholder = 'Click to listen'
+      } else {
+        kbInput.placeholder = 'Input keyboard shortcut'
+      }
+    })
+
+    kbInput.addEventListener('focus', (e) => {
+      if (kbListener.checked) {
+        e.target.placeholder = 'Listening...'
+      }
+    })
+
+    kbInput.addEventListener('blur', (e) => {
+      e.target.placeholder = 'Click to listen'
+    })
+
+    kbInput.addEventListener('keydown', (e) => {
+      e.preventDefault()
+
+      console.log(e)
+      console.log(isModifierKeyPressed(e))
+      console.log(isRegularKeyPressed(e))
+
+      if (!isModifierKeyPressed(e) || !isRegularKeyPressed(e.code)) {
+        kbInput.value = ''
+        return false
+      }
+
+      const alt = e.altKey ? ICONS.alt : ''
+      const ctrl = e.ctrlKey ? ICONS.ctrl : ''
+      const meta = e.metaKey ? ICONS.meta : ''
+      const shift = e.shiftKey ? ICONS.shift : ''
+
+      kbInput.value = `${ctrl}${alt}${shift}${meta}${e.code.slice(-1)}`
+    })
+
+    function isModifierKeyPressed (e) {
+      return e.altKey || e.ctrlKey || e.metaKey
+    }
+
+    function isRegularKeyPressed (e) {
+      // return /^[A-Z]$/.test(code)
+      return true
+    }
+
+    function keyboardCodeToLetterPressed (code) {
+      return code.slice(-1)
+    }
+
+  </script>
+
+</body>
+</html>

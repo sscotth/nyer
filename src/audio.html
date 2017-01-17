@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nyer</title>
+  </head>
+  <body>
+    <audio src="horn.mp3"></audio>
+    <script>
+      const { ipcRenderer } = require('electron')
+
+      const audio = document.querySelector('audio');
+
+      const nyer = () => {
+        audio.currentTime = 0
+        audio.play()
+      }
+
+      ipcRenderer.on('nyer', nyer)
+    </script>
+  </body>
+</html>
