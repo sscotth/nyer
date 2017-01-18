@@ -1,14 +1,24 @@
 {
   "name": "nyer",
   "version": "1.0.0",
-  "description": "",
+  "description": "NYER!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pack": "build --dir",
+    "dist": "build"
   },
   "keywords": [],
   "author": "Scott Humphries <npm@sscotth.io>",
   "license": "MIT",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^1.4.14",
+    "electron-builder": "^11.4.4"
+  },
+  "build": {
+    "appId": "io.sscotth.nyer",
+    "mac": {
+      "category": "Audio.Player.TrayIcon"
+    }
   }
 }
